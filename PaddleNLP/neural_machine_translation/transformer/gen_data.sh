@@ -7,26 +7,44 @@ OUTPUT_DIR=$PWD/gen_data
 ###############################################################################
 # change these variables for other WMT data
 ###############################################################################
-OUTPUT_DIR_DATA="${OUTPUT_DIR}/wmt16_ende_data"
-OUTPUT_DIR_BPE_DATA="${OUTPUT_DIR}/wmt16_ende_data_bpe"
+OUTPUT_DIR_DATA="${OUTPUT_DIR}/wmt18_zhen_data"
+OUTPUT_DIR_BPE_DATA="${OUTPUT_DIR}/wmt18_zhen_data_bpe"
 LANG1="en"
-LANG2="de"
+LANG2="zh"
 # each of TRAIN_DATA: data_url data_file_lang1 data_file_lang2
 TRAIN_DATA=(
-'http://www.statmt.org/europarl/v7/de-en.tgz'
-'europarl-v7.de-en.en' 'europarl-v7.de-en.de'
-'http://www.statmt.org/wmt13/training-parallel-commoncrawl.tgz'
-'commoncrawl.de-en.en' 'commoncrawl.de-en.de'
-'http://data.statmt.org/wmt16/translation-task/training-parallel-nc-v11.tgz'
-'news-commentary-v11.de-en.en' 'news-commentary-v11.de-en.de'
+'http://data.statmt.org/wmt17/translation-task/nc-zh-update.tgz'
+'news-commentary-v12.zh-en.en' 'news-commentary-v12.zh-en.zh'
+'http://data.statmt.org/wmt18/translation-task/training-parallel-nc-v13.tgz'
+'news-commentary-v13.zh-en.en' 'news-commentary-v13.zh-en.zh'
 )
 # each of DEV_TEST_DATA: data_url data_file_lang1 data_file_lang2
 DEV_TEST_DATA=(
-'http://data.statmt.org/wmt16/translation-task/dev.tgz'
-'newstest201[45]-deen-ref.en.sgm' 'newstest201[45]-deen-src.de.sgm'
-'http://data.statmt.org/wmt16/translation-task/test.tgz'
-'newstest2016-deen-ref.en.sgm' 'newstest2016-deen-src.de.sgm'
+'http://data.statmt.org/wmt18/translation-task/dev.tgz'
+'newstest2017-zhen-ref.en.sgm' 'newstest2017-zhen-src.zh.sgm'
+'http://data.statmt.org/wmt18/translation-task/test.tgz'
+'newstest2018-zhen-ref.en.sgm' 'newstest2018-zhen-src.zh.sgm'
 )
+#OUTPUT_DIR_DATA="${OUTPUT_DIR}/wmt16_ende_data"
+#OUTPUT_DIR_BPE_DATA="${OUTPUT_DIR}/wmt16_ende_data_bpe"
+#LANG1="en"
+#LANG2="de"
+# each of TRAIN_DATA: data_url data_file_lang1 data_file_lang2
+#TRAIN_DATA=(
+#'http://www.statmt.org/europarl/v7/de-en.tgz'
+#'europarl-v7.de-en.en' 'europarl-v7.de-en.de'
+#'http://www.statmt.org/wmt13/training-parallel-commoncrawl.tgz'
+#'commoncrawl.de-en.en' 'commoncrawl.de-en.de'
+#'http://data.statmt.org/wmt16/translation-task/training-parallel-nc-v11.tgz'
+#'news-commentary-v11.de-en.en' 'news-commentary-v11.de-en.de'
+#)
+# each of DEV_TEST_DATA: data_url data_file_lang1 data_file_lang2
+#DEV_TEST_DATA=(
+#'http://data.statmt.org/wmt16/translation-task/dev.tgz'
+#'newstest201[45]-deen-ref.en.sgm' 'newstest201[45]-deen-src.de.sgm'
+#'http://data.statmt.org/wmt16/translation-task/test.tgz'
+#'newstest2016-deen-ref.en.sgm' 'newstest2016-deen-src.de.sgm'
+#)
 ###############################################################################
 
 ###############################################################################
