@@ -54,20 +54,20 @@
 
 ```text
 .
-├── wmt16_ende_data              # WMT16 英德翻译数据
-├── wmt16_ende_data_bpe          # BPE 编码的 WMT16 英德翻译数据
+├── wmt18_enzh_data              # WMT16 英德翻译数据
+├── wmt18_enzh_data_bpe          # BPE 编码的 WMT16 英德翻译数据
 ├── mosesdecoder                 # Moses 机器翻译工具集，包含了 Tokenize、BLEU 评估等脚本
 └── subword-nmt                  # BPE 编码的代码
 ```
 
-另外我们也整理提供了一份处理好的 WMT'16 EN-DE 数据以供[下载](https://transformer-res.bj.bcebos.com/wmt16_ende_data_bpe_clean.tar.gz)使用，其中包含词典（`vocab_all.bpe.32000`文件）、训练所需的 BPE 数据（`train.tok.clean.bpe.32000.en-de`文件）、预测所需的 BPE 数据（`newstest2016.tok.bpe.32000.en-de`等文件）和相应的评估预测结果所需的 tokenize 数据（`newstest2016.tok.de`等文件）。
+另外我们也整理提供了一份处理好的 WMT'18 EN-zh 数据，其中包含词典（`vocab_all.bpe.32000`文件）、训练所需的 BPE 数据（`train.tok.clean.bpe.32000.en-zh`文件）、预测所需的 BPE 数据（`newstest2017.tok.bpe.32000.en-zh`等文件）和相应的评估预测结果所需的 tokenize 数据（`newstest2017.tok.de`等文件）。
 
 
 自定义数据：如果需要使用自定义数据，本项目程序中可直接支持的数据格式为制表符 \t 分隔的源语言和目标语言句子对，句子中的 token 之间使用空格分隔。提供以上格式的数据文件（可以分多个part，数据读取支持文件通配符）和相应的词典文件即可直接运行。
 
 ### 单机训练
 
-以提供的英德翻译数据为例，可以执行以下命令进行模型训练：
+以提供的英中翻译数据为例，可以执行以下命令进行模型训练：
 
 ```sh
 # open garbage collection to save memory
@@ -78,10 +78,10 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 python -u main.py \
   --do_train True \
   --epoch 30 \
-  --src_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
-  --trg_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
+  --src_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
+  --trg_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
   --special_token '<s>' '<e>' '<unk>' \
-  --training_file gen_data/wmt16_ende_data_bpe/train.tok.clean.bpe.32000.en-de \
+  --training_file gen_data/wmt18_enzh_data_bpe/train.tok.clean.bpe.32000.en-zh \
   --batch_size 4096
 ```
 
@@ -96,10 +96,10 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 python -u main.py \
   --do_train True \
   --epoch 30 \
-  --src_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
-  --trg_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
+  --src_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
+  --trg_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
   --special_token '<s>' '<e>' '<unk>' \
-  --training_file gen_data/wmt16_ende_data_bpe/train.tok.clean.bpe.32000.en-de \
+  --training_file gen_data/wmt18_enzh_data_bpe/train.tok.clean.bpe.32000.en-zh \
   --batch_size 4096 \
   --n_head 16 \
   --d_model 1024 \
@@ -123,7 +123,7 @@ python -u main.py \
 
 ### 模型推断
 
-以英德翻译数据为例，模型训练完成后可以执行以下命令对指定文件中的文本进行翻译：
+以英中翻译数据为例，模型训练完成后可以执行以下命令对指定文件中的文本进行翻译：
 
 ```sh
 # open garbage collection to save memory
@@ -133,10 +133,10 @@ export CUDA_VISIBLE_DEVICES=0
 
 python -u main.py \
   --do_predict True \
-  --src_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
-  --trg_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
+  --src_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
+  --trg_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
   --special_token '<s>' '<e>' '<unk>' \
-  --predict_file gen_data/wmt16_ende_data_bpe/newstest2014.tok.bpe.32000.en-de \
+  --predict_file gen_data/wmt18_enzh_data_bpe/newstest2018.tok.bpe.32000.en-zh \
   --batch_size 32 \
   --init_from_params trained_params/step_100000 \
   --beam_size 5 \
@@ -154,10 +154,10 @@ export CUDA_VISIBLE_DEVICES=0
 
 python -u main.py \
   --do_predict True \
-  --src_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
-  --trg_vocab_fpath gen_data/wmt16_ende_data_bpe/vocab_all.bpe.32000 \
+  --src_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
+  --trg_vocab_fpath gen_data/wmt18_enzh_data_bpe/vocab_all.bpe.32000 \
   --special_token '<s>' '<e>' '<unk>' \
-  --predict_file gen_data/wmt16_ende_data_bpe/newstest2014.tok.bpe.32000.en-de \
+  --predict_file gen_data/wmt18_enzh_data_bpe/newstest2018.tok.bpe.32000.en-zh \
   --batch_size 32 \
   --init_from_params trained_params/step_100000 \
   --beam_size 5 \
@@ -180,7 +180,7 @@ sed -r 's/(@@ )|(@@ ?$)//g' predict.txt > predict.tok.txt
 # 若无 BLEU 评估工具，需先进行下载
 # git clone https://github.com/moses-smt/mosesdecoder.git
 # 以英德翻译 newstest2014 测试数据为例
-perl gen_data/mosesdecoder/scripts/generic/multi-bleu.perl gen_data/wmt16_ende_data/newstest2014.tok.de < predict.tok.txt
+perl gen_data/mosesdecoder/scripts/generic/multi-bleu.perl gen_data/wmt18_enzh_data/newstest2018.tok.de < predict.tok.txt
 ```
 可以看到类似如下的结果：
 ```
